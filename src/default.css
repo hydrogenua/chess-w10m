@@ -57,6 +57,20 @@ html, body {
 .tile.green { background: #81b64c; }
 .tile.dark { background: #404040; }
 
+.mini {
+  display: block;
+  width: 260px;
+  padding: 10px 0;
+  margin-top: 14px;
+  border: 1px solid #555;
+  background: #333;
+  color: #bbb;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+}
+
+.mini:active { opacity: 0.75; }
+
 #hint {
   margin-top: 22px;
   font-size: 13px;

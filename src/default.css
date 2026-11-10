@@ -1,0 +1,73 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #81b64c;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#webview {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+}
+
+#splash {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #81b64c;
+  color: #fff;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+#splash-glyph {
+  font-family: 'Segoe UI Symbol';
+  font-size: 110px;
+  line-height: 1;
+}
+
+#splash-text {
+  font-size: 30px;
+  font-weight: 300;
+  margin-top: 14px;
+}
+
+#splash-status {
+  font-size: 15px;
+  opacity: 0.8;
+  margin-top: 10px;
+}
+
+#refresh {
+  position: absolute;
+  right: 8px;
+  bottom: 10px;
+  z-index: 20;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  font-size: 22px;
+  font-family: 'Segoe UI Symbol';
+  padding: 0;
+}

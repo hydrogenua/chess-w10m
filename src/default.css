@@ -68,6 +68,22 @@ html, body {
   color: #fff;
 }
 
+#seg-theme {
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 2px;
+}
+
+.sw {
+  width: 44px;
+  height: 28px;
+  border: 1px solid #555;
+  padding: 0;
+  margin-right: 6px;
+}
+
+.sw.on { border: 2px solid #81b64c; }
+
 #btn-start {
   margin-top: 26px;
   width: 260px;
@@ -137,6 +153,19 @@ html, body {
 .sq.light { background: #ebecd0; }
 .sq.dark { background: #739552; }
 
+/* ---- board themes ---- */
+.t-brown .sq.light { background: #f0d9b5; }
+.t-brown .sq.dark { background: #b58863; }
+
+.t-blue .sq.light { background: #dee3e6; }
+.t-blue .sq.dark { background: #8ca2ad; }
+
+.t-gray .sq.light { background: #e8e8e8; }
+.t-gray .sq.dark { background: #7d7a7a; }
+
+.t-purple .sq.light { background: #e5dcf5; }
+.t-purple .sq.dark { background: #9a8cc0; }
+
 .sq span {
   position: absolute;
   left: 0;
@@ -147,8 +176,15 @@ html, body {
   text-align: center;
 }
 
-.sq.wp span { color: #fafafa; text-shadow: 0 1px 2px rgba(0,0,0,0.75); }
-.sq.bp span { color: #262626; text-shadow: 0 1px 1px rgba(255,255,255,0.3); }
+/* ---- piece styles ---- */
+.p-classic .sq.wp span { color: #fafafa; text-shadow: 0 1px 2px rgba(0,0,0,0.75); }
+.p-classic .sq.bp span { color: #262626; text-shadow: 0 1px 1px rgba(255,255,255,0.3); }
+
+.p-outline .sq.wp span { color: #fdfdfd; text-shadow: 0 0 2px rgba(0,0,0,0.9), 0 0 3px rgba(0,0,0,0.5); }
+.p-outline .sq.bp span { color: #2a2a2a; text-shadow: 0 0 1px rgba(255,255,255,0.35); }
+
+.p-flat .sq.wp span { color: #ffffff; text-shadow: none; }
+.p-flat .sq.bp span { color: #181818; text-shadow: none; }
 
 .sq.sel { box-shadow: inset 0 0 0 3px rgba(255,255,255,0.9); }
 .sq.last { box-shadow: inset 0 0 0 999px rgba(255,255,0,0.28); }

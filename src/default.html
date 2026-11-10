@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <title>Chess.com</title>
+  <title>Chess</title>
   <link rel="stylesheet" href="default.css" />
 </head>
 <body>
-  <x-ms-webview id="webview" src="https://lichess.org/"></x-ms-webview>
-  <div id="splash">
-    <div id="splash-glyph">&#9822;</div>
-    <div id="splash-text">Chess</div>
-    <div id="splash-status">loading...</div>
+  <div id="hub">
+    <div id="glyph">&#9822;</div>
+    <h1 id="title">Chess</h1>
+    <button id="btn-chesscom" class="tile green">Chess.com</button>
+    <button id="btn-lichess" class="tile dark">Lichess</button>
+    <div id="hint">opens in Venetium</div>
+    <div id="status"></div>
   </div>
-  <button id="refresh" title="reload">&#8635;</button>
   <script src="default.js"></script>
 </body>
 </html>

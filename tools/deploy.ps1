@@ -164,10 +164,14 @@ $resp = Invoke-Wdp 'POST' $uri $ms.ToArray() "multipart/form-data; boundary=$bou
 Write-Host ("install: HTTP " + $resp.StatusCode + " " + ($resp.Content -replace '\s+', ' '))
 if ($resp.StatusCode -notin 200, 202) { throw "install failed: $($resp.Content)" }
 
-# 5) poll install state
+# 5) poll install state (WDP often drops the poll right after the 202 - the
+#    install completes on the phone anyway, so hiccup = retry, not fatal)
 for ($i = 0; $i -lt 40; $i++) {
     Start-Sleep -Seconds 4
-    $resp = Invoke-Wdp 'GET' "$base/api/app/packagemanager/state"
+    try { $resp = Invoke-Wdp 'GET' "$base/api/app/packagemanager/state" } catch {
+        Write-Host 'poll hiccup, retrying...'
+        continue
+    }
     $txt = $resp.Content
     if ($txt -match '"Success" : false') { throw "install error: $txt" }
     if ($txt -match 'installRunning" : false') { Write-Host 'install finished'; break }

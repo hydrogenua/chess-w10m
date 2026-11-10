@@ -1,48 +1,54 @@
 (function () {
   "use strict";
 
-  var wv = document.getElementById("webview");
-  var splash = document.getElementById("splash");
-  var statusEl = document.getElementById("splash-status");
-  var refresh = document.getElementById("refresh");
+  // Venetium package family (Chromium 150 port for W10M).
+  // Both modern chess sites are broken on the built-in EdgeHTML WebView,
+  // so this app just hands the URL to Venetium.
+  var TARGET_FAMILY = "Venetium_7p434m16tbgc6";
 
-  function hideSplash() {
-    splash.style.display = "none";
-  }
+  var statusEl = document.getElementById("status");
 
-  function showSplash(text) {
+  function show(text) {
     statusEl.textContent = text;
-    splash.style.display = "-ms-flexbox";
-    splash.style.display = "flex";
   }
 
-  wv.addEventListener("MSWebViewContentLoading", hideSplash);
-  wv.addEventListener("MSWebViewNavigationCompleted", hideSplash);
-
-  wv.addEventListener("MSWebViewNavigationFailed", function () {
-    showSplash("network error - tap reload");
-  });
-
-  wv.addEventListener("MSWebViewUnviewableContentIdentified", function () {
-    showSplash("unsupported content");
-  });
-
-  refresh.addEventListener("click", function () {
-    hideSplash();
-    try {
-      wv.refresh();
-    } catch (err) {
-      wv.navigate("https://www.chess.com/");
+  function launchInTarget(url) {
+    if (typeof Windows === "undefined" || !Windows.System || !Windows.System.Launcher) {
+      show("WinRT Launcher unavailable");
+      return;
     }
+    var uri = new Windows.Foundation.Uri(url);
+    try {
+      var opts = new Windows.System.LauncherOptions();
+      opts.targetApplicationPackageFamilyName = TARGET_FAMILY;
+      Windows.System.Launcher.launchUriAsync(uri, opts).then(
+        function (ok) {
+          if (ok) { return; }
+          show("Venetium did not take the link, opening default browser...");
+          return Windows.System.Launcher.launchUriAsync(uri);
+        },
+        function (err) {
+          show("targeted launch failed, opening default browser...");
+          return Windows.System.Launcher.launchUriAsync(uri);
+        }
+      ).done(
+        function (ok) {
+          if (ok) { show(""); }
+        },
+        function (err2) {
+          show("launch failed: " + (err2 && err2.message ? err2.message : "?"));
+        }
+      );
+    } catch (e) {
+      show("launch error: " + (e && e.message ? e.message : "?"));
+    }
+  }
+
+  document.getElementById("btn-chesscom").addEventListener("click", function () {
+    launchInTarget("https://www.chess.com/");
   });
 
-  window.onbackclick = function () {
-    try {
-      if (wv.canGoBack) {
-        wv.goBack();
-        return true;
-      }
-    } catch (err) { }
-    return false;
-  };
+  document.getElementById("btn-lichess").addEventListener("click", function () {
+    launchInTarget("https://lichess.org/");
+  });
 })();
